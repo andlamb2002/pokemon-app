@@ -11,6 +11,7 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
   const [numberInput, setNumberInput] = useState("");
+  const [formKey, setFormKey] = useState(10);
 
   const handleSearch = () => {
     console.log("Search input:", searchInput);
@@ -30,7 +31,7 @@ function App() {
   };
 
   const handleReset = () => {
-    setSearchInput("");
+    setFormKey(formKey + 1);
     setSelectedOption(null);
     setNumberInput(0);
   };
@@ -39,15 +40,17 @@ function App() {
 
   return (
     <>
-      {/* <Test></Test>
-      <Test2></Test2> */}
       <Button name="🔍" onClick={handleSearch} />
       <Search setSearchInput={setSearchInput} /> 
-      <Dropdown options={optionsArray} onSelect={handleOptionSelect} />
-      <p>Selected option: {selectedOption}</p>
-      <Button name="Submit Number" onClick={handleNumberSubmit} />
-      <Number onNumberChange={handleNumberChange} />
-      <Button name="Reset" color="red" onClick={handleReset} />
+      
+      {/* eslint-disable-next-line no-script-url */}
+      <form key={formKey} action="javascript:void(0)" method="post">
+        <Dropdown key={formKey} options={optionsArray} onSelect={handleOptionSelect} />
+        <p>Selected option: {selectedOption}</p>
+        <Button name="Submit Number" onClick={handleNumberSubmit} />
+        <Number onNumberChange={handleNumberChange} />
+        <Button name="Reset" color="red" onClick={handleReset} />
+      </form>
     </>
     
     );

@@ -1,4 +1,3 @@
-// Number.js
 import React, { useState } from "react";
 
 function Number(props) {
@@ -6,13 +5,13 @@ function Number(props) {
 
     const handleInput = (e) => {
         setNumberInput(e.target.value);
-        props.onNumberChange(e.target.value); // Trigger the callback function
+        props.onNumberChange(e.target.value); 
     };
 
     return (
         <div>
             <input 
-                className="text-textColor text-4xl bg-white border-4 border-black rounded p-2" 
+                className="text-textColor text-2xl bg-white border-4 border-black rounded p-2" 
                 type="number" 
                 min="0"
                 placeholder="Number"
