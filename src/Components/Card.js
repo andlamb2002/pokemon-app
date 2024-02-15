@@ -6,9 +6,10 @@ function Card(props) {
     };
 
     return (
-        <div onClick={handleClick}>
-            <img src={props.sprite} alt={props.name} />
-            <h2>{props.name}</h2>
+        <div className="w-64 h-64 bg-lightRed text-textColor text-4xl flex flex-col justify-center items-center p-4 hover:bg-accentRed" onClick={handleClick}>
+            <img className="w-32 h-32 mb-4" src={props.sprite} alt={props.name} />
+            <h2>{props.name.charAt(0).toUpperCase() + props.name.slice(1)}</h2>
+            
         </div>
     )
 }
