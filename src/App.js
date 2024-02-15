@@ -48,7 +48,7 @@ function App() {
         <Dropdown key={formKey} options={optionsArray} onSelect={handleOptionSelect} />
         <p>Selected option: {selectedOption}</p>
         <Button name="Submit Number" onClick={handleNumberSubmit} />
-        <Number onNumberChange={handleNumberChange} />
+        <Number name="Min" onNumberChange={handleNumberChange} />
         <Button name="Reset" color="red" onClick={handleReset} />
       </form>
     </>
