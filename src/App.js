@@ -78,9 +78,17 @@ let offset = 0;
         <Button name="Reset" color="red" onClick={handleReset} />
       </form>
 
-      {pokemonList.map((pokemon) => (
-        <Card key={pokemon.id} name={pokemon.name} sprite={pokemon.sprite} onClick={() => handleCardClick(pokemon.id)} />
-      ))}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 xl:grid-cols-5">
+          {pokemonList.map((pokemon) => (
+            <Card key={pokemon.id} name={pokemon.name} sprite={pokemon.sprite} onClick={() => handleCardClick(pokemon.id)} />
+          ))}
+        </div>
+      </div>
+      
+      
+      
+      
     </>
     
     );
