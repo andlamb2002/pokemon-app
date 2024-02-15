@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 // import Test from './Test.js'
 // import Test2 from './Test2.js'
 import Button from './Components/Button.js'
 import Search from './Components/Search.js'
 import Dropdown from './Components/Dropdown.js' 
 import Number from './Components/Number.js'
+import Card from './Components/Card.js'
 
 function App() {
 
@@ -12,6 +13,27 @@ function App() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [numberInput, setNumberInput] = useState("");
   const [formKey, setFormKey] = useState(10);
+  const [pokemonList, setPokemonList] = useState([]);
+
+let limit = 50;
+let offset = 0;
+
+  useEffect(() => {
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)      
+    .then((res) => res.json())
+      .then((data) => {
+        const pokemonArray = data.results.map((pokemon) => ({
+          id: pokemon.url.split("/")[6], 
+          name: pokemon.name,
+          sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.url.split("/")[6]}.png` // Constructing sprite URL
+        }));
+        setPokemonList(pokemonArray);
+      });
+  }, [limit, offset]);
+
+  useEffect(() => {
+    console.log(pokemonList);
+  }, [pokemonList]);
 
   const handleSearch = () => {
     console.log("Search input:", searchInput);
@@ -36,6 +58,10 @@ function App() {
     setNumberInput(0);
   };
 
+  const handleCardClick = (id) => {
+    console.log("Pokemon ID:", id);
+};
+
   const optionsArray = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
 
   return (
@@ -51,6 +77,10 @@ function App() {
         <Number name="Min" onNumberChange={handleNumberChange} />
         <Button name="Reset" color="red" onClick={handleReset} />
       </form>
+
+      {pokemonList.map((pokemon) => (
+        <Card key={pokemon.id} name={pokemon.name} sprite={pokemon.sprite} onClick={() => handleCardClick(pokemon.id)} />
+      ))}
     </>
     
     );
