@@ -16,7 +16,7 @@ function Card(props) {
 
 Card.propTypes = {
     name: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.string,
     sprite: PropTypes.string,
     onClick: PropTypes.func.isRequired,
 }

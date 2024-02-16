@@ -1,72 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import HeaderTop from '../Components/HeaderTop'
+import HeaderTop from '../Components/HeaderTop';
 import Sidebar from '../Components/Sidebar';
 import Card from '../Components/Card';
 
-export default function Home()  {
-
-  const [pokemonList, setPokemonList] = useState([]);
-
-  let limit = 50;
-  let offset = 0;
+export default function Home() {
+    const [pokemonList, setPokemonList] = useState([]);
+    const [filteredPokemonList, setFilteredPokemonList] = useState([]);
 
     useEffect(() => {
-      fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
-      .then((res) => res.json())
-        .then((data) => {
-          const pokemonArray = data.results.map((pokemon) => ({
-            id: pokemon.url.split("/")[6], 
-            name: pokemon.name,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.url.split("/")[6]}.png` // Constructing sprite URL
-          }));
-          setPokemonList(pokemonArray);
-        });
-    }, [limit, offset]);
+        fetch(`https://pokeapi.co/api/v2/pokemon?limit=50&offset=0`)
+            .then((res) => res.json())
+            .then(async (data) => {
+                const pokemonArray = await Promise.all(data.results.map(async (pokemon) => {
+                    const response = await fetch(pokemon.url);
+                    const pokemonData = await response.json();
+                    return {
+                        id: pokemonData.id,
+                        name: pokemonData.name,
+                        sprite: pokemonData.sprites.front_default, 
+                    };
+                }));
+                setPokemonList(pokemonArray);
+                setFilteredPokemonList(pokemonArray);
+            });
+    }, []);
 
     useEffect(() => {
-      console.log(pokemonList);
+        console.log(pokemonList);
     }, [pokemonList]);
 
     const handleCardClick = (id) => {
-      console.log("Pokemon ID:", id);
-    }; 
+        console.log("Pokemon ID:", id);
+    };
 
-  return (
-    <>
-      <HeaderTop searchInput={true}></HeaderTop>
-      <div className="flex flex-row justify-between">
-        <Sidebar blank={false}></Sidebar>
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
-            {pokemonList.map((pokemon) => (
-              <Card key={pokemon.id} id={pokemon.id} name={pokemon.name} sprite={pokemon.sprite} onClick={() => handleCardClick(pokemon.id)} />
-            ))}
-          </div>
-        </div>
-        <Sidebar></Sidebar>
-      </div>
-    </>
-    
+    const handleSearchInputChange = (value) => {
+        console.log("Search input:", value);
+        const filteredList = pokemonList.filter(pokemon => pokemon.name.toLowerCase().includes(value.toLowerCase()));
+        setFilteredPokemonList(filteredList);
+    };
+
+    return (
+        <>
+            <HeaderTop searchInput={true} onSearchInputChange={handleSearchInputChange} />
+            <div className="flex flex-row justify-between">
+                <Sidebar blank={false} />
+                <div className="flex justify-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
+                        {filteredPokemonList.map((pokemon) => (
+                            <Card key={pokemon.id} id={pokemon.id} name={pokemon.name} sprite={pokemon.sprite} onClick={() => handleCardClick(pokemon.id)} />
+                        ))}
+                    </div>
+                </div>
+                <Sidebar />
+            </div>
+        </>
     );
 }
-
-
-
-
-
-// import React from "react";
-// import { Link } from "react-router-dom";
-
-// export default function Home({ pokemonProp: results }) {
-//     // console.log(results);
-//     return (
-//         <div className="mt-10 p-4 flex flex-wrap">
-//             {results &&
-//                 results.map((val) => (
-//                     <div className="ml-4 text-2xl text-blue-400 " key={val.index}>
-//                         <Link to={`/about/${val.index}`}>{val.name}</Link>
-//                     </div>
-//                 ))}
-//         </div>
-//     );
-// }
