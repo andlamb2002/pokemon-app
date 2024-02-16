@@ -52,7 +52,7 @@ HeaderTop.propTypes = {
     searchInput: PropTypes.bool,
     sortDropdown: PropTypes.bool,
     name: PropTypes.string,
-    onSearchInputChange: PropTypes.func.isRequired, 
+    onSearchInputChange: PropTypes.func, 
 };
 
 HeaderTop.defaultProps = {

@@ -16,15 +16,15 @@ function Card(props) {
 
 Card.propTypes = {
     name: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     sprite: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
 }
 
 Card.defaultProps = {
     name: "Name",
     id: 0,
-    sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+    sprite: "",
 }
 
 export default Card;
