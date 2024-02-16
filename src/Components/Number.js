@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from 'prop-types';
 
 function Number(props) {
-    const [numberInput, setNumberInput] = useState();
+    const [numberInput, setNumberInput] = useState("");
 
     const handleInput = (e) => {
         setNumberInput(e.target.value);

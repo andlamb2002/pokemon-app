@@ -1,12 +1,19 @@
-// import React, { useState, useEffect} from 'react';
+import React, { useState } from 'react';
+import HeaderTop from './Components/HeaderTop'
 import Testing from './Components/Testing'
+import Sidebar from './Components/Sidebar';
 
 function App() {
 
 
+
   return (
     <>
-      <Testing></Testing>
+      <HeaderTop searchInput={true}></HeaderTop>
+      <div className="flex flex-row">
+        <Sidebar blank={false}></Sidebar>
+      </div>
+      {/* <Testing></Testing> */}
     </>
     
     );
