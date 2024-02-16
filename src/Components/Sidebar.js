@@ -108,6 +108,8 @@ function Sidebar(props) {
 
     if(!props.blank) {
         filter = <>
+            <p className="text-textColor text-4xl">Filter</p>
+
             {/* eslint-disable-next-line no-script-url */}
             <form key={formKey} action="javascript:void(0)" method="post">
                 <Dropdown key={formKey} options={optionsArray} onSelect={handleOptionSelect} />
@@ -147,7 +149,6 @@ function Sidebar(props) {
 
   return (
     <div className="w-72 bg-primary">
-        <p className="text-textColor text-4xl">Filter</p>
         {filter}
     </div>
   );
