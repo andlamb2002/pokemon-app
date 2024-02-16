@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import HeaderTop from '../Components/HeaderTop'
 import Sidebar from '../Components/Sidebar'
+import Carousel from '../Components/Carousel'
 
 function About(props) {
     let { pokemonId } = useParams();
@@ -32,6 +33,7 @@ function About(props) {
                 <Sidebar/>
                 {pokemonData && (
                     <div className="text-textColor text-5xl">
+                        <Carousel images={[pokemonData.sprites.front_default, pokemonData.sprites.back_default]}></Carousel>
                         <p>ID: {pokemonData.id}</p>
                         <p>Types: {pokemonData.types.map(type => type.type.name).join(", ")}</p>
                         <p>HP: {pokemonData.stats.find(stat => stat.stat.name === "hp").base_stat}</p>

@@ -1,0 +1,30 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
+function Carousel(props) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToNextSlide = () => {
+    const newIndex = (currentIndex + 1) % props.images.length;
+    setCurrentIndex(newIndex);
+  };
+
+  const goToPrevSlide = () => {
+    const newIndex = (currentIndex - 1 + props.images.length) % props.images.length;
+    setCurrentIndex(newIndex);
+  };
+
+  return (
+    <div className="carousel-container">
+      <button onClick={goToPrevSlide}>Previous</button>
+      <img src={props.images[currentIndex]} alt={`Slide ${currentIndex}`} />
+      <button onClick={goToNextSlide}>Next</button>
+    </div>
+  );
+}
+
+Carousel.propTypes = {
+    images: PropTypes.arrayOf(PropTypes.string),
+  };
+
+export default Carousel;
