@@ -25,29 +25,40 @@ function HeaderTop(props) {
         }
       }, [props, selectedOption]);
 
-    const search = () => {
+    const content = () => {
         if (props.searchInput) {
             const optionsArray = ["ID (Asc)", "ID (Desc)", "Name (Asc)", "Name (Desc)"];
             return (
                 <>
-                    <Search setSearchInput={setSearchInput}></Search>
-                    <Button name="🔍" onClick={handleSearch}></Button>
-                    <Dropdown options={optionsArray} onSelect={handleOptionSelect}></Dropdown>
+                    <div className="flex flex-row justify-between bg-header items-center">
+                        <Link to="/"> 
+                            <img src={logo} alt="logo" className="w-72"></img>
+                        </Link>
+                        <Search setSearchInput={setSearchInput}></Search>
+                        <Button name="🔍" onClick={handleSearch}></Button>
+                        <Dropdown options={optionsArray} onSelect={handleOptionSelect}></Dropdown>
+                        <div className="w-72"></div>
+                    </div>
                 </>
             );
         } else {
-            return <div></div>;
+            return <>
+                <div className="flex flex-row bg-header items-center p">
+                    <Link to="/"> 
+                        <img src={logo} alt="logo" className="w-72"></img>
+                    </Link>
+                    <div className="className=text-textColor bg-primary text-5xl m-4 p-4 rounded">
+                        {props.name}
+                    </div>
+                </div>
+            </>
         }
     };
 
     return (
-        <div className="flex flex-row justify-between bg-header items-center">
-            <Link to="/"> 
-                <img src={logo} alt="logo" className="w-72"></img>
-            </Link>
-            {search()}
-            <div className="w-72"></div>
-        </div>
+        <>
+            {content()}
+        </>
     );
 }
 
