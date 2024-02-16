@@ -1,6 +1,7 @@
 import logo from '../Assets/logo.png';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import Search from './Search';
 import Button from './Button';
@@ -41,7 +42,9 @@ function HeaderTop(props) {
 
     return (
         <div className="flex flex-row justify-between bg-header items-center">
-            <img src={logo} alt="logo" className="w-72"></img>
+            <Link to="/"> 
+                <img src={logo} alt="logo" className="w-72"></img>
+            </Link>
             {search()}
             <div className="w-72"></div>
         </div>

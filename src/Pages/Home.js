@@ -11,7 +11,7 @@ export default function Home()  {
   let offset = 0;
 
     useEffect(() => {
-      fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)      
+      fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
       .then((res) => res.json())
         .then((data) => {
           const pokemonArray = data.results.map((pokemon) => ({

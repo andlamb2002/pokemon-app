@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
+import HeaderTop from '../Components/HeaderTop'
 
 function About(props) {
     let { pokemonId } = useParams();
@@ -18,6 +19,7 @@ function About(props) {
     }, [pokemonId]);
     return (
         <>
+            <HeaderTop></HeaderTop>
             {pokemon && pokemon.sprites && (
                 <div className="w-3/12 m-auto bg-purple-100 mt-4 shadow-2xl flex justify-center flex-col items-center">
                     <h3 className="text-2xl text-green-900 uppercase">{pokemon.name}</h3>
