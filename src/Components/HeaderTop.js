@@ -40,9 +40,10 @@ function HeaderTop(props) {
     }
 
     return (
-        <div className="flex flex-row bg-header">
+        <div className="flex flex-row justify-between bg-header items-center">
             <img src={logo} alt="logo" className="w-72"></img>
             {search()}
+            <div className="w-72"></div>
         </div>
         
     );

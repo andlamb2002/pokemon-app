@@ -107,44 +107,45 @@ function Sidebar(props) {
     let filter = <></>;
 
     if(!props.blank) {
-        filter = <>
-            <p className="text-textColor text-4xl">Filter</p>
-
+        filter = 
+        <div >
             {/* eslint-disable-next-line no-script-url */}
-            <form key={formKey} action="javascript:void(0)" method="post">
+            <form key={formKey} action="javascript:void(0)" method="post" className="grid grid-cols-1 gap-4">
+                <p className="text-textColor text-4xl">Filter</p>
+
                 <Dropdown key={formKey} options={optionsArray} onSelect={handleOptionSelect} />
 
-                <div className="flex flex-row">
+                <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">❤️</p>
                     <Number name="Min" onNumberChange={handleMinNumberChangeHp} />
                     <Number name="Max" onNumberChange={handleMaxNumberChangeHp} />
                 </div>
 
-                <div className="flex flex-row">
+                <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">⚔️</p>
                     <Number name="Min" onNumberChange={handleMinNumberChangeAtk} />
                     <Number name="Max" onNumberChange={handleMaxNumberChangeAtk} />
                 </div>
 
-                <div className="flex flex-row">
+                <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">🛡️</p>
                     <Number name="Min" onNumberChange={handleMinNumberChangeDef} />
                     <Number name="Max" onNumberChange={handleMaxNumberChangeDef} />
                 </div>
 
-                <div className="flex flex-row">
+                <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">💨</p>
                     <Number name="Min" onNumberChange={handleMinNumberChangeSpd} />
                     <Number name="Max" onNumberChange={handleMaxNumberChangeSpd} />
                 </div>
 
-                <div className="flex flex-row">
+                <div className="flex flex-row justify-evenly">
                     <Button name="Enter" onClick={handleEnterClicked} />
                     <Button name="Reset" color="red" onClick={handleReset}/>
                 </div>
                 
             </form>
-        </>;
+        </div>;
     }
 
   return (

@@ -45,7 +45,6 @@ function App() {
         </div>
         <Sidebar></Sidebar>
       </div>
-      {/* <Testing></Testing> */}
     </>
     
     );
