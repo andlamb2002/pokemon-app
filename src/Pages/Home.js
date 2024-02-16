@@ -6,9 +6,14 @@ import Card from '../Components/Card';
 export default function Home() {
     const [pokemonList, setPokemonList] = useState([]);
     const [filteredPokemonList, setFilteredPokemonList] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("");
+
+    let limit = 50;
+    let offset = 0;
 
     useEffect(() => {
-        fetch(`https://pokeapi.co/api/v2/pokemon?limit=50&offset=0`)
+        console.log("Fetching data...")
+        fetch(`https://pokeapi.co/api/v2/pokemon?limit=500&offset=0`) 
             .then((res) => res.json())
             .then(async (data) => {
                 const pokemonArray = await Promise.all(data.results.map(async (pokemon) => {
@@ -21,9 +26,9 @@ export default function Home() {
                     };
                 }));
                 setPokemonList(pokemonArray);
-                setFilteredPokemonList(pokemonArray);
+                setFilteredPokemonList(pokemonArray.slice(offset, limit));
             });
-    }, []);
+    }, [limit, offset]);
 
     useEffect(() => {
         console.log(pokemonList);
@@ -34,14 +39,39 @@ export default function Home() {
     };
 
     const handleSearchInputChange = (value) => {
-        console.log("Search input:", value);
-        const filteredList = pokemonList.filter(pokemon => pokemon.name.toLowerCase().includes(value.toLowerCase()));
+        const filteredList = pokemonList.filter(pokemon => pokemon.name.toLowerCase().includes(value.toLowerCase())).slice(0, 50);
         setFilteredPokemonList(filteredList);
     };
 
+    const handleDropdownInputChange = (option) => {
+        setSelectedOption(option);
+    }
+
+    useEffect(() => {
+        if (selectedOption) {
+            let sortedList = [...pokemonList];
+    
+            if (selectedOption === "ID (Asc)") {
+                sortedList.sort((a, b) => a.id - b.id); 
+            } else if (selectedOption === "ID (Desc)") {
+                sortedList.sort((a, b) => b.id - a.id); 
+            } else if (selectedOption === "Name (Asc)") {
+                sortedList.sort((a, b) => a.name.localeCompare(b.name)); 
+            } else if (selectedOption === "Name (Desc)") {
+                sortedList.sort((a, b) => b.name.localeCompare(a.name)); 
+            }
+    
+            setFilteredPokemonList(sortedList.slice(0, 50));
+        }
+    }, [selectedOption, pokemonList]); 
+    
+
     return (
         <>
-            <HeaderTop searchInput={true} onSearchInputChange={handleSearchInputChange} />
+            <HeaderTop searchInput={true} 
+                onSearchInputChange={handleSearchInputChange}
+                onDropdownInputChange={handleDropdownInputChange}
+                 />
             <div className="flex flex-row justify-between">
                 <Sidebar blank={false} />
                 <div className="flex justify-center">

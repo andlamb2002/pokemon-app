@@ -19,8 +19,11 @@ function HeaderTop(props) {
     };
 
     useEffect(() => {
-        console.log("Selected option:", selectedOption);
-    }, [selectedOption]);
+        console.log(typeof props.onDropdownInputChange); 
+        if (typeof props.onDropdownInputChange === 'function') {
+          props.onDropdownInputChange(selectedOption);
+        }
+      }, [props, selectedOption]);
 
     const search = () => {
         if (props.searchInput) {
@@ -53,6 +56,7 @@ HeaderTop.propTypes = {
     sortDropdown: PropTypes.bool,
     name: PropTypes.string,
     onSearchInputChange: PropTypes.func, 
+    onDropdownInputChange: PropTypes.func,
 };
 
 HeaderTop.defaultProps = {
