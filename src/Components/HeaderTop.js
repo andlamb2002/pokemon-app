@@ -46,7 +46,7 @@ function HeaderTop(props) {
                     <Link to="/"> 
                         <img src={logo} alt="logo" className="w-72"></img>
                     </Link>
-                    <div className="className=text-textColor bg-primary text-5xl m-4 p-4 rounded">
+                    <div className="className=text-textColor bg-primary text-6xl font-bold m-4 p-4 rounded">
                         {props.name}
                     </div>
                 </div>
