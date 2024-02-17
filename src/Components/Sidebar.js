@@ -24,62 +24,39 @@ function Sidebar(props) {
 
     const handleOptionSelect = (option) => {
         setSelectedOption(option);
-        console.log("Selected option:", option);
     };
   
-    const handleMinNumberChangeHp = (value) => {
-        setMinNumberHp(value);
-    };
-    const handleMaxNumberChangeHp = (value) => {
-        setMaxNumberHp(value);
-    };
-
-    const handleMinNumberChangeAtk = (value) => {
-        setMinNumberAtk(value);
-    };
-    const handleMaxNumberChangeAtk = (value) => {
-        setMaxNumberAtk(value);
-    };
-
-    const handleMinNumberChangeDef = (value) => {
-        setMinNumberDef(value);
-    };
-    const handleMaxNumberChangeDef = (value) => {
-        setMaxNumberDef(value);
-    };
-
-    const handleMinNumberChangeSpd = (value) => {
-        setMinNumberSpd(value);
-    };
-    const handleMaxNumberChangeSpd = (value) => {
-        setMaxNumberSpd(value);
+    const handleMinNumberChange = (value, stateSetter) => {
+        stateSetter(value);
     };
   
     const handleEnterClicked = () => {
-        console.log("Dropdown value:", selectedOption);
-
-        console.log("Min Number:", minNumberHp);
-        console.log("Max Number:", maxNumberHp);
-        console.log("Min Number:", minNumberAtk);
-        console.log("Max Number:", maxNumberAtk);
-        console.log("Min Number:", minNumberDef);
-        console.log("Max Number:", maxNumberDef);
-        console.log("Min Number:", minNumberSpd);
-        console.log("Max Number:", maxNumberSpd);
+        const logs = [
+            selectedOption,
+            minNumberHp,
+            maxNumberHp,
+            minNumberAtk,
+            maxNumberAtk,
+            minNumberDef,
+            maxNumberDef,
+            minNumberSpd,
+            maxNumberSpd
+        ];
+        props.onLogs(logs);
     };
   
     const handleReset = () => {
       setFormKey(formKey + 1);
       setSelectedOption(null);
 
-      setMinNumberHp(0);
-      setMaxNumberHp(0);
-      setMinNumberAtk(0);
-      setMaxNumberAtk(0);
-      setMinNumberDef(0);
-      setMaxNumberDef(0);
-      setMinNumberSpd(0);
-      setMaxNumberSpd(0);
+      setMinNumberHp("");
+      setMaxNumberHp("");
+      setMinNumberAtk("");
+      setMaxNumberAtk("");
+      setMinNumberDef("");
+      setMaxNumberDef("");
+      setMinNumberSpd("");
+      setMaxNumberSpd("");
     };
 
     const optionsArray = [
@@ -117,26 +94,26 @@ function Sidebar(props) {
 
                 <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">❤️</p>
-                    <Number name="Min" onNumberChange={handleMinNumberChangeHp} />
-                    <Number name="Max" onNumberChange={handleMaxNumberChangeHp} />
+                    <Number name="Min" onNumberChange={(value) => handleMinNumberChange(value, setMinNumberHp)} />
+                    <Number name="Max" onNumberChange={(value) => handleMinNumberChange(value, setMaxNumberHp)} />
                 </div>
 
                 <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">⚔️</p>
-                    <Number name="Min" onNumberChange={handleMinNumberChangeAtk} />
-                    <Number name="Max" onNumberChange={handleMaxNumberChangeAtk} />
+                    <Number name="Min" onNumberChange={(value) => handleMinNumberChange(value, setMinNumberAtk)} />
+                    <Number name="Max" onNumberChange={(value) => handleMinNumberChange(value, setMaxNumberAtk)} />
                 </div>
 
                 <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">🛡️</p>
-                    <Number name="Min" onNumberChange={handleMinNumberChangeDef} />
-                    <Number name="Max" onNumberChange={handleMaxNumberChangeDef} />
+                    <Number name="Min" onNumberChange={(value) => handleMinNumberChange(value, setMinNumberDef)} />
+                    <Number name="Max" onNumberChange={(value) => handleMinNumberChange(value, setMaxNumberDef)} />
                 </div>
 
                 <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">💨</p>
-                    <Number name="Min" onNumberChange={handleMinNumberChangeSpd} />
-                    <Number name="Max" onNumberChange={handleMaxNumberChangeSpd} />
+                    <Number name="Min" onNumberChange={(value) => handleMinNumberChange(value, setMinNumberSpd)} />
+                    <Number name="Max" onNumberChange={(value) => handleMinNumberChange(value, setMaxNumberSpd)} />
                 </div>
 
                 <div className="flex flex-row justify-evenly">
@@ -148,13 +125,11 @@ function Sidebar(props) {
         </div>;
     }
 
-    const minHeight = `calc(100vh - 162px)`; 
-
-  return (
-    <div className="w-72 min-w-72 max-w-72 bg-primary" style={{minHeight}}>
-        {filter}
-    </div>
-  );
+    return (
+        <div className="w-72 min-w-72 max-w-72 bg-primary">
+            {filter}
+        </div>
+    );
 }
 
 Sidebar.propTypes = {

@@ -23,6 +23,8 @@ export default function Home() {
                         id: pokemonData.id,
                         name: pokemonData.name,
                         sprite: pokemonData.sprites.front_default, 
+                        types: pokemonData.types,
+                        stats: pokemonData.stats
                     };
                 }));
                 setPokemonList(pokemonArray);
@@ -46,6 +48,31 @@ export default function Home() {
     const handleDropdownInputChange = (option) => {
         setSelectedOption(option);
     }
+
+    const handleSidebarLogs = (logs) => {
+        if (logs.length === 0 || logs[0] === null) {
+            setFilteredPokemonList(pokemonList.slice(0, 50));
+            return;
+        }
+    
+        const [type] = logs;
+        
+        const filteredList = pokemonList.filter(pokemon => {
+            if (type === "" || type.toLowerCase() === "type") {
+                return true;
+            }
+            
+            if (pokemon.types && pokemon.types.length > 0 && pokemon.types[0].type && pokemon.types[0].type.name.toLowerCase() === type.toLowerCase()) {
+                return true;
+            }
+            return false;
+        }).slice(0, 50);
+        
+        setFilteredPokemonList(filteredList);
+    };
+    
+    
+    
 
     useEffect(() => {
         if (selectedOption) {
@@ -73,7 +100,8 @@ export default function Home() {
                 onDropdownInputChange={handleDropdownInputChange}
                  />
             <div className="flex flex-row justify-between">
-                <Sidebar blank={false} />
+                {/* <Sidebar blank={false} onLogs={handleSidebarLogs} /> */}
+                <Sidebar></Sidebar>
                 <div className="flex justify-center">
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
                         {filteredPokemonList.map((pokemon) => (
