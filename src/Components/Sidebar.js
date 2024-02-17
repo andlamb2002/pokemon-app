@@ -148,8 +148,10 @@ function Sidebar(props) {
         </div>;
     }
 
+    const minHeight = `calc(100vh - 162px)`; 
+
   return (
-    <div className="w-72 bg-primary">
+    <div className="w-72 min-w-72 max-w-72 bg-primary" style={{minHeight}}>
         {filter}
     </div>
   );

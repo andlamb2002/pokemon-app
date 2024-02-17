@@ -19,7 +19,6 @@ function HeaderTop(props) {
     };
 
     useEffect(() => {
-        console.log(typeof props.onDropdownInputChange); 
         if (typeof props.onDropdownInputChange === 'function') {
           props.onDropdownInputChange(selectedOption);
         }
