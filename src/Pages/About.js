@@ -46,21 +46,21 @@ function About(props) {
                                 <img className="w-64 h-64" src={pokemonData.sprites.back_default} alt="back-sprite" />
                                 <Button name="Back" onClick={goBack} />
                             </div>
-                            <div className="mx-4">
-                                <p className="my-8">ID: {pokemonData.id}</p>
-                                <div className="my-8">
-                                    <p className="my-2">Types:</p>
-                                    <p className="my-2">{pokemonData.types.map(type => type.type.name).join(", ")}</p>
+                            <div>
+                                <div className="bg-lightRed p-4 rounded">
+                                    <p>ID: {pokemonData.id}</p>
+                                    <div className="my-8">
+                                        <p className="my-2">Types:</p>
+                                        <p className="my-2">{pokemonData.types.map(type => type.type.name).join(", ")}</p>
+                                    </div>
+                                    <div className="my-8">
+                                        <p className="my-2">❤️ HP: {pokemonData.stats.find(stat => stat.stat.name === "hp").base_stat}</p>
+                                        <p className="my-2">⚔️ Attack: {pokemonData.stats.find(stat => stat.stat.name === "attack").base_stat}</p>
+                                        <p className="my-2">🛡️ Defense: {pokemonData.stats.find(stat => stat.stat.name === "defense").base_stat}</p>
+                                        <p className="my-2">💨 Speed: {pokemonData.stats.find(stat => stat.stat.name === "speed").base_stat}</p>
+                                    </div>
                                 </div>
-                                <div className="my-8">
-                                    <p className="my-2">❤️ HP: {pokemonData.stats.find(stat => stat.stat.name === "hp").base_stat}</p>
-                                    <p className="my-2">⚔️ Attack: {pokemonData.stats.find(stat => stat.stat.name === "attack").base_stat}</p>
-                                    <p className="my-2">🛡️ Defense: {pokemonData.stats.find(stat => stat.stat.name === "defense").base_stat}</p>
-                                    <p className="my-2">💨 Speed: {pokemonData.stats.find(stat => stat.stat.name === "speed").base_stat}</p>
-                                </div>
-                                
                             </div>
-                            
                         </div>
                     )}
                 </div>
