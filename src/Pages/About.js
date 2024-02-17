@@ -1,8 +1,10 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import HeaderTop from '../Components/HeaderTop'
 import Sidebar from '../Components/Sidebar'
+import Button from '../Components/Button'
 
 function About(props) {
     let { pokemonId } = useParams();
@@ -25,6 +27,12 @@ function About(props) {
             });
     }, [pokemonId]);
 
+    const navigate = useNavigate(); 
+
+    const goBack = () => {
+        navigate(-1);
+    };
+
     return (
         <>
             {pokemonData && <HeaderTop name={pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}></HeaderTop>}
@@ -36,6 +44,7 @@ function About(props) {
                             <div className="min-w-64 max-w-64 m-4">
                                 <img className="w-64 h-64" src={pokemonData.sprites.front_default} alt="front-sprite" />
                                 <img className="w-64 h-64" src={pokemonData.sprites.back_default} alt="back-sprite" />
+                                <Button name="Back" onClick={goBack} />
                             </div>
                             <div className="mx-4">
                                 <p className="my-8">ID: {pokemonData.id}</p>
