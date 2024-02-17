@@ -49,30 +49,27 @@ export default function Home() {
         setSelectedOption(option);
     }
 
-    const handleSidebarLogs = (logs) => {
-        if (logs.length === 0 || logs[0] === null) {
-            setFilteredPokemonList(pokemonList.slice(0, 50));
-            return;
-        }
+    // const handleSidebarLogs = (logs) => {
+    //     if (logs.length === 0 || logs[0] === null) {
+    //         setFilteredPokemonList(pokemonList.slice(0, 50));
+    //         return;
+    //     }
     
-        const [type] = logs;
+    //     const [type] = logs;
         
-        const filteredList = pokemonList.filter(pokemon => {
-            if (type === "" || type.toLowerCase() === "type") {
-                return true;
-            }
+    //     const filteredList = pokemonList.filter(pokemon => {
+    //         if (type === "" || type.toLowerCase() === "type") {
+    //             return true;
+    //         }
             
-            if (pokemon.types && pokemon.types.length > 0 && pokemon.types[0].type && pokemon.types[0].type.name.toLowerCase() === type.toLowerCase()) {
-                return true;
-            }
-            return false;
-        }).slice(0, 50);
+    //         if (pokemon.types && pokemon.types.length > 0 && pokemon.types[0].type && pokemon.types[0].type.name.toLowerCase() === type.toLowerCase()) {
+    //             return true;
+    //         }
+    //         return false;
+    //     }).slice(0, 50);
         
-        setFilteredPokemonList(filteredList);
-    };
-    
-    
-    
+    //     setFilteredPokemonList(filteredList);
+    // };
 
     useEffect(() => {
         if (selectedOption) {
