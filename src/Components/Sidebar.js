@@ -57,6 +57,8 @@ function Sidebar(props) {
       setMaxNumberDef("");
       setMinNumberSpd("");
       setMaxNumberSpd("");
+
+      props.onLogs([]);
     };
 
     const optionsArray = [

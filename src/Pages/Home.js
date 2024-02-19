@@ -8,6 +8,7 @@ export default function Home() {
     const [filteredPokemonList, setFilteredPokemonList] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
+    const [filterArray, setFilterArray] = useState([]);
 
     let limit = 50;
     let offset = 0;
@@ -47,32 +48,51 @@ export default function Home() {
     }
 
     const handleSidebarLogs = (logs) => {
-        if (logs[0] === "Type" || logs[0] === null) {
-            console.log("No type selected");
-        }
-        
-        console.log(logs);
-        
+        setFilterArray(logs);
     };
 
     useEffect(() => {
         console.log("Effect");
         const pokemonListCopy = [...pokemonList];
-        let searchList = pokemonListCopy.filter(pokemon => pokemon.name.toLowerCase().includes(searchInput.toLowerCase()));
+        let filterList = pokemonListCopy.filter(pokemon => pokemon.name.toLowerCase().includes(searchInput.toLowerCase()));
+
+            const [type, minHp, maxHp, minAtk, maxAtk, minDef, maxDef, minSpd, maxSpd] = filterArray;
+    
+            filterList = filterList.filter(pokemon => {
+                if (type && type.toLowerCase() !== "type") {
+                    const pokemonType = pokemon.types && pokemon.types.length > 0 &&
+                        pokemon.types[0].type && pokemon.types[0].type.name.toLowerCase();
+                    if (pokemonType !== type.toLowerCase()) return false;
+                }
+    
+                const hpStat = pokemon.stats.find(stat => stat.stat.name === "hp").base_stat;
+                if ((minHp && hpStat < minHp) || (maxHp && hpStat > maxHp)) return false;
+    
+                const atkStat = pokemon.stats.find(stat => stat.stat.name === "attack").base_stat;
+                if ((minAtk && atkStat < minAtk) || (maxAtk && atkStat > maxAtk)) return false;
+    
+                const defStat = pokemon.stats.find(stat => stat.stat.name === "defense").base_stat;
+                if ((minDef && defStat < minDef) || (maxDef && defStat > maxDef)) return false;
+    
+                const spdStat = pokemon.stats.find(stat => stat.stat.name === "speed").base_stat;
+                if ((minSpd && spdStat < minSpd) || (maxSpd && spdStat > maxSpd)) return false;
+    
+                return true;
+            });
 
         if (selectedOption === "ID (Asc)") {
-            searchList.sort((a, b) => a.id - b.id); 
+            filterList.sort((a, b) => a.id - b.id); 
         } else if (selectedOption === "ID (Desc)") {
-            searchList.sort((a, b) => b.id - a.id); 
+            filterList.sort((a, b) => b.id - a.id); 
         } else if (selectedOption === "Name (Asc)") {
-            searchList.sort((a, b) => a.name.localeCompare(b.name)); 
+            filterList.sort((a, b) => a.name.localeCompare(b.name)); 
         } else if (selectedOption === "Name (Desc)") {
-            searchList.sort((a, b) => b.name.localeCompare(a.name)); 
+            filterList.sort((a, b) => b.name.localeCompare(a.name)); 
         }
 
-        setFilteredPokemonList(searchList.slice(0, 50));
+        setFilteredPokemonList(filterList.slice(0, 50));
         
-    }, [searchInput, selectedOption, pokemonList]); 
+    }, [searchInput, selectedOption, filterArray, pokemonList]); 
     
 
     return (
