@@ -6,6 +6,7 @@ import Card from '../Components/Card';
 export default function Home() {
     const [pokemonList, setPokemonList] = useState([]);
     const [filteredPokemonList, setFilteredPokemonList] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
 
     let limit = 50;
@@ -32,62 +33,46 @@ export default function Home() {
             });
     }, [limit, offset]);
 
-    useEffect(() => {
-        console.log(pokemonList);
-    }, [pokemonList]);
-
     const handleCardClick = (id) => {
         console.log("Pokemon ID:", id);
     };
 
     const handleSearchInputChange = (value) => {
-        const filteredList = pokemonList.filter(pokemon => pokemon.name.toLowerCase().includes(value.toLowerCase())).slice(0, 50);
-        setFilteredPokemonList(filteredList);
+        console.log("setSearchInput")
+        setSearchInput(value);
     };
 
     const handleDropdownInputChange = (option) => {
         setSelectedOption(option);
     }
 
-    // const handleSidebarLogs = (logs) => {
-    //     if (logs.length === 0 || logs[0] === null) {
-    //         setFilteredPokemonList(pokemonList.slice(0, 50));
-    //         return;
-    //     }
-    
-    //     const [type] = logs;
+    const handleSidebarLogs = (logs) => {
+        if (logs[0] === "Type" || logs[0] === null) {
+            console.log("No type selected");
+        }
         
-    //     const filteredList = pokemonList.filter(pokemon => {
-    //         if (type === "" || type.toLowerCase() === "type") {
-    //             return true;
-    //         }
-            
-    //         if (pokemon.types && pokemon.types.length > 0 && pokemon.types[0].type && pokemon.types[0].type.name.toLowerCase() === type.toLowerCase()) {
-    //             return true;
-    //         }
-    //         return false;
-    //     }).slice(0, 50);
+        console.log(logs);
         
-    //     setFilteredPokemonList(filteredList);
-    // };
+    };
 
     useEffect(() => {
-        if (selectedOption) {
-            let sortedList = [...pokemonList];
-    
-            if (selectedOption === "ID (Asc)") {
-                sortedList.sort((a, b) => a.id - b.id); 
-            } else if (selectedOption === "ID (Desc)") {
-                sortedList.sort((a, b) => b.id - a.id); 
-            } else if (selectedOption === "Name (Asc)") {
-                sortedList.sort((a, b) => a.name.localeCompare(b.name)); 
-            } else if (selectedOption === "Name (Desc)") {
-                sortedList.sort((a, b) => b.name.localeCompare(a.name)); 
-            }
-    
-            setFilteredPokemonList(sortedList.slice(0, 50));
+        console.log("Effect");
+        const pokemonListCopy = [...pokemonList];
+        let searchList = pokemonListCopy.filter(pokemon => pokemon.name.toLowerCase().includes(searchInput.toLowerCase()));
+
+        if (selectedOption === "ID (Asc)") {
+            searchList.sort((a, b) => a.id - b.id); 
+        } else if (selectedOption === "ID (Desc)") {
+            searchList.sort((a, b) => b.id - a.id); 
+        } else if (selectedOption === "Name (Asc)") {
+            searchList.sort((a, b) => a.name.localeCompare(b.name)); 
+        } else if (selectedOption === "Name (Desc)") {
+            searchList.sort((a, b) => b.name.localeCompare(a.name)); 
         }
-    }, [selectedOption, pokemonList]); 
+
+        setFilteredPokemonList(searchList.slice(0, 50));
+        
+    }, [searchInput, selectedOption, pokemonList]); 
     
 
     return (
@@ -97,8 +82,7 @@ export default function Home() {
                 onDropdownInputChange={handleDropdownInputChange}
                  />
             <div className="flex flex-row justify-between">
-                {/* <Sidebar blank={false} onLogs={handleSidebarLogs} /> */}
-                <Sidebar></Sidebar>
+                <Sidebar blank={false} onLogs={handleSidebarLogs} />
                 <div className="flex justify-center">
                     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
                         {filteredPokemonList.map((pokemon) => (
