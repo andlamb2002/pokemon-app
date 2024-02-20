@@ -130,7 +130,7 @@ function Sidebar(props) {
     }
 
     return (
-        <div className="w-72 min-w-72 max-w-72 bg-primary">
+        <div className="w-72 min-w-72 max-w-72 min-h-screen bg-primary">
             {filter}
         </div>
     );
