@@ -51,7 +51,11 @@ function About(props) {
                                     <p>ID: {pokemonData.id}</p>
                                     <div className="my-8">
                                         <p className="my-2">Types:</p>
-                                        <p className="my-2">{pokemonData.types.map(type => type.type.name).join(", ")}</p>
+                                        <p className="my-2">
+                                            {pokemonData.types.map(type => 
+                                                type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)
+                                            ).join(", ")}
+                                        </p>                                    
                                     </div>
                                     <div className="my-8">
                                         <p className="my-2">❤️ HP: {pokemonData.stats.find(stat => stat.stat.name === "hp").base_stat}</p>
