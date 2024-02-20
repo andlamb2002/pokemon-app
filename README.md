@@ -1,4 +1,4 @@
-# Pokemon App
+# Pokemon App (Pickemon)
 
 ## How to Run
 
