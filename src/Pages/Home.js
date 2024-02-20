@@ -10,8 +10,8 @@ export default function Home() {
     const [selectedOption, setSelectedOption] = useState("");
     const [filterArray, setFilterArray] = useState([]);
 
-    let limit = 50;
-    let offset = 0;
+    const limit = 40;
+    const offset = 0;
 
     useEffect(() => {
         console.log("Fetching data...")
@@ -94,9 +94,9 @@ export default function Home() {
             filterList.sort((a, b) => b.name.localeCompare(a.name)); 
         }
 
-        setFilteredPokemonList(filterList.slice(0, 50));
+        setFilteredPokemonList(filterList.slice(offset, limit));
         
-    }, [searchInput, selectedOption, filterArray, pokemonList]); 
+    }, [searchInput, selectedOption, filterArray, pokemonList, offset, limit]); 
     
 
     return (
