@@ -90,9 +90,11 @@ function Sidebar(props) {
         <div >
             {/* eslint-disable-next-line no-script-url */}
             <form key={formKey} action="javascript:void(0)" method="post" className="grid grid-cols-1 gap-4">
-                <p className="text-textColor text-4xl">Filter</p>
+                <p className="text-textColor text-5xl pt-4 pl-4">Filter</p>
 
-                <Dropdown key={formKey} options={optionsArray} onSelect={handleOptionSelect} />
+                <div className="pl-4">
+                    <Dropdown  key={formKey} options={optionsArray} onSelect={handleOptionSelect} />
+                </div>
 
                 <div className="flex flex-row justify-evenly">
                     <p className="text-4xl">❤️</p>
