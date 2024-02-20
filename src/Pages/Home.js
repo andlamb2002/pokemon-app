@@ -9,12 +9,14 @@ export default function Home() {
     const [searchInput, setSearchInput] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const [filterArray, setFilterArray] = useState([]);
+    const [loading, setLoading] = useState(true); 
+
 
     const limit = 40;
     const offset = 0;
 
     useEffect(() => {
-        console.log("Fetching data...")
+        setLoading(true); 
         fetch(`https://pokeapi.co/api/v2/pokemon?limit=500&offset=0`) 
             .then((res) => res.json())
             .then(async (data) => {
@@ -31,15 +33,11 @@ export default function Home() {
                 }));
                 setPokemonList(pokemonArray);
                 setFilteredPokemonList(pokemonArray.slice(offset, limit));
+                setLoading(false); 
             });
     }, [limit, offset]);
 
-    const handleCardClick = (id) => {
-        console.log("Pokemon ID:", id);
-    };
-
     const handleSearchInputChange = (value) => {
-        console.log("setSearchInput")
         setSearchInput(value);
     };
 
@@ -56,7 +54,6 @@ export default function Home() {
     };
 
     useEffect(() => {
-        console.log("Effect");
         const pokemonListCopy = [...pokemonList];
         let filterList = pokemonListCopy.filter(pokemon => pokemon.name.toLowerCase().includes(searchInput.toLowerCase()));
 
@@ -109,11 +106,15 @@ export default function Home() {
             <div className="flex flex-row justify-between">
                 <Sidebar blank={false} onLogs={handleSidebarLogs} />
                 <div className="flex justify-center">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
-                        {filteredPokemonList.map((pokemon) => (
-                            <Card key={pokemon.id} id={pokemon.id} name={pokemon.name} sprite={pokemon.sprite} onClick={() => handleCardClick(pokemon.id)} />
-                        ))}
-                    </div>
+                    {loading ? (
+                        <p className="text-textColor text-4xl p-4">Fetching data...</p>
+                    ) : (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
+                            {filteredPokemonList.map((pokemon) => (
+                                <Card key={pokemon.id} id={pokemon.id} name={pokemon.name} sprite={pokemon.sprite}  />
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <Sidebar />
             </div>
