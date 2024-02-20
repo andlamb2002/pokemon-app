@@ -11,7 +11,7 @@ function Dropdown(props) {
 
     return (
         <div>
-            <select className="text-textColor text-2xl bg-white border-4 border-black rounded p-2" value={selectedOption} onChange={(e) => handleSelect(e.target.value)}>
+            <select className="text-textColor text-2xl bg-white border-4 border-black rounded p-2 cursor-pointer" value={selectedOption} onChange={(e) => handleSelect(e.target.value)}>
                 {props.options.map((option, index) => (
                     <option key={index} value={option}>{option}</option>
                 ))}
