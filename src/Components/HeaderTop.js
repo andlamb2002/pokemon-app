@@ -14,6 +14,10 @@ function HeaderTop(props) {
         props.onSearchInputChange(searchInput); 
     };
 
+    const handleEnterPress = () => {
+        props.onEnterPress(searchInput);
+    };
+
     const handleOptionSelect = (option) => {
         setSelectedOption(option);
     };
@@ -33,7 +37,7 @@ function HeaderTop(props) {
                         <Link to="/"> 
                             <img src={logo} alt="logo" className="w-72"></img>
                         </Link>
-                        <Search setSearchInput={setSearchInput}></Search>
+                        <Search setSearchInput={setSearchInput} onEnterPress={handleEnterPress} />
                         <Button name="🔍" onClick={handleSearch}></Button>
                         <Dropdown options={optionsArray} onSelect={handleOptionSelect}></Dropdown>
                         <div className="w-72"></div>

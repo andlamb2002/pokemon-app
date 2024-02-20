@@ -43,6 +43,10 @@ export default function Home() {
         setSearchInput(value);
     };
 
+    const handleEnterPress = (value) => {
+        setSearchInput(value);
+    };
+
     const handleDropdownInputChange = (option) => {
         setSelectedOption(option);
     }
@@ -100,6 +104,7 @@ export default function Home() {
             <HeaderTop searchInput={true} 
                 onSearchInputChange={handleSearchInputChange}
                 onDropdownInputChange={handleDropdownInputChange}
+                onEnterPress={handleEnterPress}
                  />
             <div className="flex flex-row justify-between">
                 <Sidebar blank={false} onLogs={handleSidebarLogs} />

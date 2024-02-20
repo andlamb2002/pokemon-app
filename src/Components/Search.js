@@ -8,6 +8,12 @@ function Search(props) {
         props.setSearchInput(e.target.value); 
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            props.onEnterPress(search);
+        }
+    };
+
     return (
         <div>
             <input
@@ -16,6 +22,7 @@ function Search(props) {
                 placeholder="Search"
                 value={search}
                 onChange={handleInput}
+                onKeyDown={handleKeyPress}
             />
         </div>
     );
