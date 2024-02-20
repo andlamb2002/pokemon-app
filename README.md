@@ -10,5 +10,6 @@
 
 - Type a Pokemon's name in the search bar, then click the search icon to display search results.
 - Use the dropdown to sort the Pokemon by ID or name.
+- Use the sidebar to filter the Pokemon by type and stats. Click enter to apply the filters and reset to clear the filters.
 - Click on any of the Pokemon results to see the Pokemon's stats.
 - Click on the "Pickemon" logo or back button to be taken back to the homepage.
