@@ -61,9 +61,8 @@ export default function Home() {
     
             filterList = filterList.filter(pokemon => {
                 if (type && type.toLowerCase() !== "type") {
-                    const pokemonType = pokemon.types && pokemon.types.length > 0 &&
-                        pokemon.types[0].type && pokemon.types[0].type.name.toLowerCase();
-                    if (pokemonType !== type.toLowerCase()) return false;
+                    const pokemonTypes = pokemon.types && pokemon.types.map(pokemonType => pokemonType.type.name.toLowerCase());
+                    if (!pokemonTypes || !pokemonTypes.includes(type.toLowerCase())) return false;
                 }
     
                 const hpStat = pokemon.stats.find(stat => stat.stat.name === "hp").base_stat;
@@ -105,11 +104,11 @@ export default function Home() {
                  />
             <div className="flex flex-row justify-between">
                 <Sidebar blank={false} onLogs={handleSidebarLogs} />
-                <div className="flex justify-center">
+                <div className="flex justify-center items-start">
                     {loading ? (
                         <p className="text-textColor text-4xl p-4">Fetching data...</p>
                     ) : (
-                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2 items-start">
                             {filteredPokemonList.map((pokemon) => (
                                 <Card key={pokemon.id} id={pokemon.id} name={pokemon.name} sprite={pokemon.sprite}  />
                             ))}
